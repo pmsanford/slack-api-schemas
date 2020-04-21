@@ -7,7 +7,7 @@ const minimist = require('minimist');
 
 const args = minimist(process.argv.slice(2));
 
-const schema_dir = args['schema_dir'];
+const schema_dir = '../'
 
 function cacheGetOrAdd(url, cb) {
   const cacheKey = url.replace(/[^a-z0-9]/gi, '_').toLowerCase();
@@ -42,6 +42,7 @@ function sanitizeResponse(methodName, response) {
   response = response.replace(/e\s+\"/mg, "e,\"");
   response = response.replace(/}\s+\"/mg, "},\"");
   response = response.replace(/]\s+\"/mg, "],\"");
+  console.log('1: ' + response);
   // replace { ... } with {}
   response = response.replace(/\{\s*(\.+|…)\s*\}/mg, () => {
     console.log(`Replacing ... in object fields in response for ${methodName}`);
@@ -72,6 +73,8 @@ function sanitizeResponse(methodName, response) {
   if(response[response.length - 1] === ',') {
     response = response.substring(0, response.length - 1);
   }
+
+  console.log('20: ' + response);
 
   return response.trim() ? JSON.stringify(JSON.parse(response)) : "";
 }
@@ -874,7 +877,12 @@ async.parallel([
         })
       });
       messageTypes.forEach((messageType) => {
+        console.log('mt: ' + JSON.stringify(messageType));
+        if (messageType.sample === '') {
+          return;
+        }
         const messageSchema = GenerateSchema.json(JSON.parse(sanitizeResponse(messageType.name, messageType.sample)));
+        console.log('ms: ' + messageSchema);
         messageSchema.title = messageType.name;
         messageSchema["$schema"] = undefined;
         if (messageType.name === "bot_message") {

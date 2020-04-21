@@ -207,7 +207,7 @@
                   "type": "string"
                 },
                 "ts": {
-                  "type": "string"
+                  "$ref": "../objects/timestamp.json"
                 }
               },
               "id": "message",
@@ -397,7 +397,7 @@
                         "type": "string"
                       },
                       "ts": {
-                        "type": "string"
+                        "$ref": "../objects/timestamp.json"
                       }
                     },
                     "id": "message",
