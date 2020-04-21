@@ -205,13 +205,17 @@
                 },
                 "channel": {
                   "type": "string"
+                },
+                "ts": {
+                  "type": "string"
                 }
               },
               "id": "message",
               "required": [
                 "ok",
                 "type",
-                "channel"
+                "channel",
+                "ts"
               ]
             },
             {
@@ -391,12 +395,16 @@
                       },
                       "channel": {
                         "type": "string"
+                      },
+                      "ts": {
+                        "type": "string"
                       }
                     },
                     "id": "message",
                     "required": [
                       "type",
-                      "channel"
+                      "channel",
+                      "ts"
                     ]
                   },
                   {
